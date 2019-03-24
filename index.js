@@ -1,8 +1,6 @@
-// https://cdnjs.com/libraries/crypto-js
-
 function clearUrl(url) {
-	return url.replace('http://','').replace('https://','').replace('www.','').split("/")[0].toLowerCase();
-
+    url = url.toLowerCase();
+	return url.replace('http://', '').replace('https://', '').replace('www.', '').split("/")[0];
 }
 
 function myBase56(text) {
@@ -10,25 +8,23 @@ function myBase56(text) {
   return text.replace(regex, "");
 }
 
-function unlockPassword(masterPassword, url) { //}, url, passwordLength, key, capitals, digits, specialCharacters, onlyDigits) {
-    // var masterPassword = "MyMasterPassword!1";
-    var color = "red";
+function unlockPassword(masterPassword, url, passwordLength, key, capital, digit, specialCharacter, onlyDigits) {
+    if (isNaN(passwordLength)) {
+        passwordLength = 12;
+    }
 
-    var capitals = true;
-    var digits = true;
-    var specialCharacters = true;
-    var onlyDigits = false;
-    var passwordLength = 12;
-
-    var password = myBase56(
-        CryptoJS.SHA512(
+    var password =
             CryptoJS.SHA512(CryptoJS.SHA512(masterPassword)).toString() + "-" +
-            CryptoJS.SHA512(color.toLowerCase()).toString() + "-" +
             CryptoJS.SHA512(clearUrl(url)).toString()
-        ).toString()
-        );
+
+    if (key != "") {
+        password += "-" + CryptoJS.SHA512(key.toLowerCase()).toString()
+    }
+
+    password = CryptoJS.SHA512(password).toString();
+    password = myBase56(password)
         
-    if (capitals == true) {
+    if (capital == true) {
         password = "Q" + password
     }
 
@@ -36,7 +32,7 @@ function unlockPassword(masterPassword, url) { //}, url, passwordLength, key, ca
     var regex = new RegExp('[^0-9]', 'g');               
     password = password.replace(regex, ""); 
     } else {
-    if (digits == true) {
+    if (digit == true) {
         password = "2" + password;
     } else {
         var regex = new RegExp('[0-9]', 'g');               
@@ -44,7 +40,7 @@ function unlockPassword(masterPassword, url) { //}, url, passwordLength, key, ca
     }
     }
 
-    if (specialCharacters == true && onlyDigits == false) {
+    if (specialCharacter == true && onlyDigits == false) {
     password = "!" + password;
     }
 
