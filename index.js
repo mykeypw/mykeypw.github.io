@@ -1,15 +1,20 @@
+// use bcrypt or scrypt or pbkdf
+// https://github.com/ricmoo/scrypt-js
+
 function clearUrl(url) {
     url = url.toLowerCase();
 	return url.replace('http://', '').replace('https://', '').replace('www.', '').split("/")[0];
 }
 
 function myBase56(text) {
+  var regex = new RegExp('[^a-zA-Z0-9]', 'g');               
+  text = text.replace(regex, "");
   var regex = new RegExp('[0OIl+\/1o]', 'g');               
   return text.replace(regex, "");
 }
 
 function unlockPassword(masterPassword, url, passwordLength, key, capital, digit, specialCharacter, onlyDigits) {
-    if (isNaN(passwordLength)) {
+    if (passwordLength == "" || isNaN(passwordLength)) {
         passwordLength = 12;
     }
 
@@ -22,6 +27,22 @@ function unlockPassword(masterPassword, url, passwordLength, key, capital, digit
     }
 
     password = CryptoJS.SHA512(password).toString();
+
+    before = performance.now();
+
+    nonce = 0;
+    while(true) {
+        if (password.endsWith("000")) {
+            break;
+        }
+
+        password = CryptoJS.SHA512(password + nonce).toString();
+    }
+
+    after = performance.now();
+    // alert((after - before) / 1000);
+
+    password = CryptoJS.SHA512(password).toString(CryptoJS.enc.Base64);
     password = myBase56(password)
         
     if (capital == true) {
@@ -29,15 +50,15 @@ function unlockPassword(masterPassword, url, passwordLength, key, capital, digit
     }
 
     if (onlyDigits == true) {
-    var regex = new RegExp('[^0-9]', 'g');               
-    password = password.replace(regex, ""); 
-    } else {
-    if (digit == true) {
-        password = "2" + password;
-    } else {
-        var regex = new RegExp('[0-9]', 'g');               
+        var regex = new RegExp('[^0-9]', 'g');               
         password = password.replace(regex, ""); 
-    }
+    } else {
+        if (digit == true) {
+            password = "2" + password;
+        } else {
+            var regex = new RegExp('[0-9]', 'g');               
+            password = password.replace(regex, ""); 
+        }
     }
 
     if (specialCharacter == true && onlyDigits == false) {
