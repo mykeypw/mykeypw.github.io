@@ -108,17 +108,17 @@
             
             <div class="password result" style="display: none; margin-top: 2em;">
                 <h4 class="ui horizontal divider header">
-                <i class="unlock alternate icon"></i>Your unlocked password
+                    <i class="unlock alternate icon"></i>Your unlocked password
                 </h4>
 
                 <p>Your password is generated and displayed below. You can copy it from the text box.</p>
 
                 <div class="fluid ui action result input">
-                <input type="text" class="unlocked password" value="!QtuB811zK3" style="font-family: Consolas, monaco, monospace">
-                <button class="ui green right labeled icon copy button" data-clipboard-target=".unlocked.password">
-                    <i class="copy icon"></i>
-                    Copy
-                </button>
+                    <input type="text" class="unlocked password" value="!QtuB811zK3" style="font-family: Consolas, monaco, monospace">
+                    <button class="ui green right labeled icon copy button" data-clipboard-target=".unlocked.password">
+                        <i class="copy icon"></i>
+                        Copy
+                    </button>
                 </div>
 
                 <p style="margin-top: 1em;">If you are interested in this project, you can purchase a PRO version.</p>
@@ -130,20 +130,8 @@
             
 
             </div>
-
             <div class="ui error message"></div>
-
         </div>
-
-        <!-- <div class="ui message" style="min-height: 8rem;">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "ca-pub-3456266071326394",
-                    enable_page_level_ads: true
-                });
-            </script>
-        </div> -->
 
         <div class="ui message">
             <div class="ui horizontal link list">
@@ -156,6 +144,15 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha512.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-scrypt/1.2.0/scrypt.min.js"></script>
+    <script src="base58.js" charset="utf-8"></script>
+    <script src="index.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136780204-1"></script>
     <script>
@@ -165,77 +162,6 @@
 
     gtag('config', 'UA-136780204-1');
     </script>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha512.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-    <script src="index.js"></script>
-    <script>
-        $(document).ready(function() {
-            var clipboard = new ClipboardJS('.copy.button');
-
-            clipboard.on('success', function(e) {
-                $('.ui.result.input')
-                .transition('pulse')
-                ;
-                // e.clearSelection();
-            });
-
-            $('.ui.checkbox').checkbox();
-
-            $('#onlyDigits').click(function() {
-                if ($(this).checkbox("is checked") == true) {
-                    $("#digit").checkbox('set disabled');
-                    $("#specialCharacter").checkbox('set disabled');
-                    $("#capital").checkbox('set disabled');
-                } else {
-                    $("#digit").checkbox('set enabled');
-                    $("#specialCharacter").checkbox('set enabled');
-                    $("#capital").checkbox('set enabled');
-                }
-                
-            });
-
-            $('.message .close').on('click', function() {
-                $(this)
-                    .closest('.message')
-                    .transition('fade');
-                $('.tiny.message').remove();
-            });
-
-            $('div.checkbox.key').click(function() {
-                $('div.key.field').toggleClass('disabled');
-            });
-
-            $('div.buy.pro').click(function() {
-                ga('send', 'event', 'purchase', 'pro')
-                $('div.buy.pro').addClass('disabled');
-            });
-
-            $('div.submit.button').click(function() {
-                var masterPassword = $("input.master.password").val();
-                var websiteUrl = $('input[name="websiteUrl"').val();
-                var passwordLength = $('input[name="passwordLength"').val();
-                var key = $('input[name="key"').val();
-
-                var capital = $('#capital').checkbox("is checked");
-                var digit = $('#digit').checkbox("is checked");
-                var specialCharacter = $('#specialCharacter').checkbox("is checked");
-                var onlyDigits = $('#onlyDigits').checkbox("is checked");
-
-                var unlockedPassword = unlockPassword(masterPassword, websiteUrl, passwordLength, key, capital, digit, specialCharacter, onlyDigits);
-
-                $('div.password.result').toggle();
-                $('div.submit.button').addClass('disabled');
-
-                $('input.unlocked.password').val(unlockedPassword);
-            });
-        });
-    </script>
-
 </body>
 
 </html>
