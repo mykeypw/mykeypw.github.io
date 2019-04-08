@@ -13,3 +13,9 @@ body>.grid {
 .column {
     max-width: 450px;
 }
+
+@media only screen and (max-width: 767px) {
+    .fields .wide.field {
+        margin-bottom: 1em !important; 
+    }
+}

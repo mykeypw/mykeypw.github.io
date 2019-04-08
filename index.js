@@ -73,6 +73,10 @@ function displayUnlockedPassword(unlockedPassword) {
     if (unlockedPassword == '') {
         $('#failed-password').show();
     } else {
+        gtag('event', 'password', {
+            'event_label': 'unlocked'
+        });
+
         $('input.unlocked.password').val(unlockedPassword);
         $('#successful-password').show();
     }
@@ -181,6 +185,10 @@ $(document).ready(function() {
         var digit = $('#digit').checkbox("is checked");
         var specialCharacter = $('#specialCharacter').checkbox("is checked");
         var onlyDigits = $('#onlyDigits').checkbox("is checked");
+
+        gtag('event', 'website', {
+            'event_label': clearUrl(websiteUrl)
+        });
 
         var errorsInForm = false;
 
