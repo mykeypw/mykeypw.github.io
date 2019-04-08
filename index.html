@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>My Key Password &mdash; One password fits all..</title>
     <meta name="google-site-verification" content="bpW1F0wMi4pUK7RyZ5bfk5vV7HGJf8hdszgo4hgX92I" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
     <div class="ui grid middle aligned center aligned">
         <div class="column">
-            <div class="ui tiny info message"  style="margin-top: 0.5em;">
+            <div class="ui tiny disclaimer info message"  style="display: none; margin-top: 0.5em;">
                 <i class="close icon"></i>
                 <div class="header">
                     Disclaimer
@@ -28,129 +28,152 @@
             </div>
             <h1 class="ui violet header" style="margin-top: 0.5em;">
                 <div class="content">
-                    My Key Password
+                    My Key Password <sup style="color: #999999;">beta</sup>
                     <div class="sub header">One password fits all..</div>
                 </div>
             </h1>
         <div class="ui form">
             <div class="ui segment">
-            <div class="field">
-                <div class="ui huge left icon input">
-                <i class="lock icon"></i>
-                <input type="password" name="masterPassword" placeholder="Master password" class="master password">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="ui huge left icon input">
-                <i class="bookmark outline icon"></i>
-                <input type="url" name="websiteUrl" placeholder="Website URL">
-                </div>
-            </div>
-            
-            <div class="fields">
-                <div class="eight wide field">
-                <div class="ui left icon input">
-                    <i class="wrench icon"></i>
-                    <input type="number" name="passwordLength" min="4" placeholder="Length (default 8 characters)">
-                </div>
-                </div>
-                <div class="eight wide key field disabled">
-                <div class="ui left icon input">
-                    <i class="key icon"></i>
-                    <input type="text" name="key" placeholder="Key or username">
-                </div>
-                </div>
-            </div>
-            
-            <div style="text-align: left; margin-bottom: 1em;">
-                <div class="ui toggle checkbox key">
-                <input type="checkbox" name="public">
-                <label>Password depends on a key</label>
-                </div>
-            </div>
-            
-
-            <div class="grouped fields" style="text-align: left;">
-                <label>Password should contain:</label>
-
                 <div class="field">
-                <div class="ui checkbox" id="capital">
-                    <input type="checkbox" tabindex="0" class="hidden" checked>
-                    <label>capital letter</label>
-                </div>
+                    <div class="ui huge left icon input">
+                    <i class="lock icon"></i>
+                    <input type="password" name="masterPassword" placeholder="Master password">
+                    </div>
                 </div>
 
                 <div class="field">
-                <div class="ui checkbox" id="specialCharacter">
-                    <input type="checkbox" tabindex="1" class="hidden" checked>
-                    <label>special character</label>
+                    <div class="ui huge left icon input">
+                    <i class="bookmark outline icon"></i>
+                    <input type="url" name="websiteUrl" placeholder="Website URL">
+                    </div>
                 </div>
+                
+                <div class="fields">
+                    <div class="ten wide key field disabled">
+                        <div class="ui left icon input">
+                            <i class="key icon"></i>
+                            <input type="text" name="key" placeholder="Key or username" disabled>
+                        </div>
+                    </div>
+                    <div class="six wide field">
+                        <div class="ui left icon input">
+                            <i class="wrench icon"></i>
+                            <input type="number" name="passwordLength" min="4" max="50" placeholder="Length (default 10 characters)">
+                        </div>
+                    </div>
                 </div>
-                <div class="field">
-                <div class="ui checkbox" id="digit">
-                    <input type="checkbox" tabindex="2" class="hidden" checked>
-                    <label>digit</label>
+                
+                <div style="text-align: left; margin-bottom: 1em;">
+                    <div class="ui toggle checkbox key">
+                    <input type="checkbox" name="public">
+                    <label>Password depends on a key / username</label>
+                    </div>
                 </div>
+
+                <div class="grouped fields" style="text-align: left;">
+                    <label>Password should contain:</label>
+
+                    <div class="field">
+                    <div class="ui checkbox" id="capital">
+                        <input type="checkbox" tabindex="0" class="hidden" checked>
+                        <label>capital letters</label>
+                    </div>
+                    </div>
+
+                    <div class="field">
+                    <div class="ui checkbox" id="specialCharacter">
+                        <input type="checkbox" tabindex="1" class="hidden" checked>
+                        <label>special character</label>
+                    </div>
+                    </div>
+                    <div class="field">
+                    <div class="ui checkbox" id="digit">
+                        <input type="checkbox" tabindex="2" class="hidden" checked>
+                        <label>digits</label>
+                    </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox" id="onlyDigits">
+                            <input type="checkbox" tabindex="3" class="hidden">
+                            <label>only digits</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="field">
-                    <div class="ui checkbox" id="onlyDigits">
-                        <input type="checkbox" tabindex="3" class="hidden">
-                        <label>only digits</label>
+
+                <div class="ui fluid animated fade large violet submit button">
+                    <div class="visible content"><i class="lock icon"></i> Unlock password</div>
+                    <div class="hidden content">
+                    <i class="lock open icon"></i> Unlock password</div>
+                </div>
+                
+                <div class="password result" style="display: none; margin-top: 1em">
+                    <div id="successful-password" style="margin-top: 1em">
+                        <h4 class="ui horizontal divider header">
+                            <i class="unlock alternate icon"></i>Your unlocked password
+                        </h4>
+
+                        <p>Your password is generated and displayed below. You can copy it from the text box.</p>
+
+                        <div class="fluid ui action result input">
+                            <input type="text" class="unlocked password" style="font-family: Consolas, monaco, monospace" readonly>
+                            <button class="ui green right labeled icon copy button" data-clipboard-target=".unlocked.password">
+                                <i class="copy icon"></i>
+                                Copy
+                            </button>
+                        </div>
+
+                        <div class="ui large green unlock again button" style="margin-top: 1em;">
+                                &uarr; Unlock one more password
+                            </div>
+                            
+                            <h4 class="ui horizontal divider header">
+                                <i class="dollar sign icon"></i>PRO version
+                            </h4>
+        
+                            <p style="margin-top: 1em;">If you are interested in this application, you can purchase a PRO version.</p>
+        
+                            <div class="ui large blue buy pro button">
+                                Buy PRO version
+                            </div>
+                    </div>
+
+                    <div id="failed-password">
+                        <div class="ui icon yellow message">
+                            <i class="bug icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                Ooops!
+                                </div>
+                                <p>Password cannot be unlocked. Please, change password parameters and try again.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="ui fluid animated fade large violet submit button">
-                <div class="visible content"><i class="lock icon"></i> Unlock password</div>
-                <div class="hidden content">
-                <i class="lock open icon"></i> Unlock password</div>
-            </div>
             
-            <div class="password result" style="display: none; margin-top: 2em;">
-                <h4 class="ui horizontal divider header">
-                    <i class="unlock alternate icon"></i>Your unlocked password
-                </h4>
-
-                <p>Your password is generated and displayed below. You can copy it from the text box.</p>
-
-                <div class="fluid ui action result input">
-                    <input type="text" class="unlocked password" value="!QtuB811zK3" style="font-family: Consolas, monaco, monospace">
-                    <button class="ui green right labeled icon copy button" data-clipboard-target=".unlocked.password">
-                        <i class="copy icon"></i>
-                        Copy
-                    </button>
-                </div>
-
-                <p style="margin-top: 1em;">If you are interested in this project, you can purchase a PRO version.</p>
-
-                <div class="ui large blue buy pro button">
-                    Buy PRO version
-                </div>
-            </div>
-            
-
-            </div>
-            <div class="ui error message"></div>
         </div>
 
-        <div class="ui message">
+        <div class="ui footer message">
             <div class="ui horizontal link list">
                 <!-- <a class="item" href="#">Disclaimer</a>  -->
-                <a class="item" href="#">How it works?</a>
-                <a class="item" href="#">Credits</a>
-                <a class="item" href="#">Contact me</a>
+                <a class="item" href="how-it-works.html">How it works?</a>
+                <a class="item" href="credits.html">Credits</a>
+                <a class="item" href="mailto:me@mykey.pw">Contact me</a>
+                <a class="item" href="https://github.com/mykeypw/mykeypw.github.io" target="_blank">GitHub</a>
             </div>
         </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha512.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-scrypt/1.2.0/scrypt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jump.js/1.0.2/jump.min.js"></script>
     <script src="base58.js" charset="utf-8"></script>
+    <script src="password.js"></script>
     <script src="index.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
