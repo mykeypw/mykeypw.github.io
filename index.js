@@ -26,7 +26,7 @@ function getMasterPasswordAndSalt(masterPassword, url, key) {
 
 function afterPasswordIsGenerated(scryptHash, passwordLength, capitals, digits, specialCharacter, onlyDigits) {
     if (passwordLength == "" || isNaN(passwordLength)) {
-        passwordLength = 10;
+        passwordLength = 12;
     }
             
     if (onlyDigits == true) {
@@ -91,7 +91,7 @@ function unlockPassword(masterPassword, url, passwordLength, key, capital, digit
         var hashedPassword = scrypt.encode_utf8(inputData.hashedPassword);
         var salt = scrypt.encode_utf8(inputData.salt);
 
-        var scryptHash = scrypt.crypto_scrypt(hashedPassword, salt, 16384, 8, 30, 256);
+        var scryptHash = scrypt.crypto_scrypt(hashedPassword, salt, 16384, 8, 15, 256);
         scryptHash = base58Encode(scrypt.to_hex(scryptHash));
         var unlockedPassword = afterPasswordIsGenerated(scryptHash, passwordLength, capital, digit, specialCharacter, onlyDigits);
         displayUnlockedPassword(unlockedPassword);
